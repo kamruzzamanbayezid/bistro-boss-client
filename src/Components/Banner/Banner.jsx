@@ -8,22 +8,22 @@ import img4 from '../../assets/home/04.jpg'
 
 const Banner = () => {
       return (
-            <Carousel showArrows={true} autoPlay={true}>
-                  <div>
-                        <img src={img1} />
-      
+            <Carousel className="text-center">
+                  <div className="lg:h-[650px] overflow-hidden">
+                        <img src={img1} className="w-full h-full object-cover" />
                   </div>
-                  <div>
-                        <img src={img2} />
+                  <div className="lg:h-[650px] overflow-hidden">
+                        <img src={img2} className="w-full h-full object-cover" />
                   </div>
-                  <div>
-                        <img src={img3} />
+                  <div className="lg:h-[650px] overflow-hidden">
+                        <img src={img3} className="w-full h-full object-cover" />
                   </div>
-                  <div>
-                        <img src={img4} />
+                  <div className="lg:h-[650px] overflow-hidden">
+                        <img src={img4} className="w-full h-full object-cover" />
                   </div>
-
             </Carousel>
+
+
       );
 };
 
