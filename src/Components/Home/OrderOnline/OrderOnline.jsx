@@ -16,7 +16,7 @@ import slide4 from '../../../assets/home/slide4.jpg'
 
 const OrderOnline = () => {
       return (
-            <div>
+            <div className='max-w-[1320px] mx-auto'>
                   <CommonTitle subTitle='---From 11:00am to 10:00pm---' title='ORDER ONLINE' />
 
                   {/* Sliders */}
