@@ -1,7 +1,7 @@
 import useMenu from "../../../Hooks/apis/useMenu";
-import CommonButton from "../../Ui/CommonButton/CommonButton";
-import CommonTitle from "../../Ui/CommonTitle/CommonTitle";
-import MenuItem from "../../Ui/MenuItem/MenuItem";
+import CommonButton from "../../Ui/CommonButton";
+import CommonTitle from "../../Ui/CommonTitle";
+import MenuItem from "../../Ui/MenuItem";
 
 const PopularMenu = () => {
 
