@@ -5,7 +5,6 @@ const useMenu = (category) => {
       const [menus, setMenus] = useState(null);
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(null);
-      console.log(category);
 
       const fetchMenu = async () => {
             try {

@@ -27,7 +27,7 @@ const Navbar = () => {
                   </NavLink>
             </li>
             <li className="text-lg font-normal">
-                  <NavLink to="/ourMenu" style={({ isActive }) => ({
+                  <NavLink to="/our-menu" style={({ isActive }) => ({
                         color: isActive ? '#EEFF25' : '#FFF',
                   })}>
                         Our Menu
