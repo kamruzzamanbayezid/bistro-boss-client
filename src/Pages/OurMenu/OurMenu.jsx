@@ -1,7 +1,6 @@
-import CommonButton from "../../Components/Ui/CommonButton";
+import { Helmet } from "react-helmet-async";
 import CommonTitle from "../../Components/Ui/CommonTitle";
 import MenuCategory from "../../Components/Ui/MenuCategory";
-import MenuItem from "../../Components/Ui/MenuItem";
 import PageBanner from "../../Components/Ui/PageBanner";
 import useMenu from "../../Hooks/apis/useMenu";
 import bannerImg from '../../assets/menu/banner3.jpg'
@@ -20,6 +19,9 @@ const OurMenu = () => {
 
       return (
             <div>
+                  <Helmet>
+                        <title>Our Menu | Bistro Boss</title>
+                  </Helmet>
                   <PageBanner
                         bgImg={bannerImg}
                         title='OUR MENU'
@@ -34,18 +36,11 @@ const OurMenu = () => {
                   </div>
 
                   {/* Offered */}
-                  <div className='mt-8 mb-20'>
-                        <div className="max-w-[1320px] mx-auto px-4 lg:px-0 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                              {
-                                    offered?.map(menu => (
-                                          <MenuItem
-                                                key={menu?._id}
-                                                item={menu}
-                                          />
-                                    ))
-                              }
-                        </div>
-                        <CommonButton text='ORDER YOUR FAVOURITE FOOD' />
+                  <div className="mb-20">
+                        <MenuCategory
+                              menus={offered}
+                              btnText='ORDER YOUR FAVOURITE FOOD'
+                        />
                   </div>
 
                   {/* Desserts */}
