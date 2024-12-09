@@ -6,10 +6,14 @@ const MenuItem = ({ item }) => {
                   <div>
                         <img className='rounded-tr-full rounded-br-full rounded-bl-full w-28 h-24' src={item?.image} alt="" />
                   </div>
-                  <div>
-                        <h4 className='text-xl mb-2'>{item?.name + ' ------------------'}</h4>
-                        <p className='text-[#737373] text-center md:text-start'>{item?.recipe}</p>
+                  <div className='flex flex-col md:flex-row gap-2'>
+                        <div>
+                              <h4 className='text-xl mb-2'>{item?.name + ' ------------------'}</h4>
+                              <p className='text-[#737373] text-center md:text-start'>{item?.recipe}</p>
+                        </div>
+                        <span className='text-[#BB8506] text-xl'>${item?.price}</span>
                   </div>
+
             </div>
       );
 };

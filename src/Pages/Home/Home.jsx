@@ -1,6 +1,7 @@
 import Banner from "../../Components/Home/Banner/Banner";
 import BistroBoss from "../../Components/Home/BistroBoss/BistroBoss";
 import CallUs from "../../Components/Home/CallUs/CallUs";
+import FromOurMenu from "../../Components/Home/FromOurMenu/FromOurMenu";
 import OrderOnline from "../../Components/Home/OrderOnline/OrderOnline";
 import PopularMenu from "../../Components/Home/PopularMenu/PopularMenu";
 import RecommendMenus from "../../Components/Home/RecommendMenus/RecommendMenus";
@@ -23,6 +24,9 @@ const Home = () => {
                   </div>
                   <div className="mb-20">
                         <RecommendMenus />
+                  </div>
+                  <div className="mb-20">
+                        <FromOurMenu />
                   </div>
             </div>
       );
