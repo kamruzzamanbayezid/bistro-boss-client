@@ -8,10 +8,17 @@ import { useState } from "react";
 import useMenu from "../../Hooks/apis/useMenu";
 import MenuCard from "../../Components/Ui/MenuCard";
 import NoItemsFound from "../../Components/NoItemsFound/NoItemsFound";
+import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const OurShop = () => {
 
-      const [tabIndex, setTabIndex] = useState(0);
+      // Dynamically render items 
+      const categories = ['salads', 'pizza', 'soups', 'dessert', 'drinks'];
+      const { category } = useParams();
+      const initialIndex = categories.indexOf(category);
+
+      const [tabIndex, setTabIndex] = useState(initialIndex);
 
       const { menus: salads } = useMenu('salad')
       const { menus: dessert } = useMenu('dessert')
@@ -21,6 +28,9 @@ const OurShop = () => {
 
       return (
             <div>
+                  <Helmet>
+                        <title>Our Shop | Bistro Boss</title>
+                  </Helmet>
                   <PageBanner
                         bgImg={shopBanner}
                         title='OUR SHOP'
@@ -42,7 +52,7 @@ const OurShop = () => {
                                           salads?.length > 0 ?
                                                 <div className="max-width grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 lg:px-0 pt-10">
                                                       {
-                                                            salads?.slice(0, 3).map(menu => (
+                                                            salads?.map(menu => (
                                                                   <MenuCard
                                                                         key={menu?._id}
                                                                         item={menu}
@@ -59,7 +69,7 @@ const OurShop = () => {
                                           pizza?.length > 0 ?
                                                 <div className="max-width grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 lg:px-0 pt-10">
                                                       {
-                                                            pizza?.slice(0, 3).map(menu => (
+                                                            pizza?.map(menu => (
                                                                   <MenuCard
                                                                         key={menu?._id}
                                                                         item={menu}
@@ -76,7 +86,7 @@ const OurShop = () => {
                                           soup?.length > 0 ?
                                                 <div className="max-width grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 lg:px-0 pt-10">
                                                       {
-                                                            soup?.slice(0, 3).map(menu => (
+                                                            soup?.map(menu => (
                                                                   <MenuCard
                                                                         key={menu?._id}
                                                                         item={menu}
@@ -85,7 +95,7 @@ const OurShop = () => {
                                                       }
                                                 </div>
                                                 :
-                                                <NoItemsFound text="Soup"/>
+                                                <NoItemsFound text="Soup" />
                                     }
                               </TabPanel>
                               <TabPanel>
@@ -93,7 +103,7 @@ const OurShop = () => {
                                           dessert?.length > 0 ?
                                                 <div className="max-width grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 lg:px-0 pt-10">
                                                       {
-                                                            dessert?.slice(0, 3).map(menu => (
+                                                            dessert?.map(menu => (
                                                                   <MenuCard
                                                                         key={menu?._id}
                                                                         item={menu}
@@ -102,7 +112,7 @@ const OurShop = () => {
                                                       }
                                                 </div>
                                                 :
-                                                <NoItemsFound text="Dessert"/>
+                                                <NoItemsFound text="Dessert" />
                                     }
                               </TabPanel>
                               <TabPanel>
@@ -110,7 +120,7 @@ const OurShop = () => {
                                           drinks?.length > 0 ?
                                                 <div className="max-width grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 lg:px-0 pt-10">
                                                       {
-                                                            drinks?.slice(0, 3).map(menu => (
+                                                            drinks?.map(menu => (
                                                                   <MenuCard
                                                                         key={menu?._id}
                                                                         item={menu}

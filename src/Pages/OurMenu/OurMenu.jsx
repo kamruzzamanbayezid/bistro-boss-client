@@ -49,7 +49,7 @@ const OurMenu = () => {
                               bgImg={dessertImg}
                               menus={dessert}
                               subtitle='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-                              title='DESSERTS'
+                              title='dessert'
                               btnText='ORDER YOUR FAVOURITE FOOD'
                         />
                   </div>
@@ -60,7 +60,7 @@ const OurMenu = () => {
                               bgImg={pizzaImg}
                               menus={pizza}
                               subtitle='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-                              title='PIZZA'
+                              title='pizza'
                               btnText='ORDER YOUR FAVOURITE FOOD'
                         />
                   </div>
@@ -71,7 +71,7 @@ const OurMenu = () => {
                               bgImg={saladImg}
                               menus={salads}
                               subtitle='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-                              title='SALADS'
+                              title='salads'
                               btnText='ORDER YOUR FAVOURITE FOOD'
                         />
                   </div>
@@ -82,7 +82,7 @@ const OurMenu = () => {
                               bgImg={soupImg}
                               menus={soup}
                               subtitle='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-                              title='SOUPS'
+                              title='soups'
                               btnText='ORDER YOUR FAVOURITE FOOD'
                         />
                   </div>

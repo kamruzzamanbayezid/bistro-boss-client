@@ -11,7 +11,7 @@ const SharedCover = ({ bgImg, title, subtitle }) => {
             >
                   {/* Overlay and Content */}
                   <div className="text-center max-w-[1000px] w-[90%] md:w-[80%] mx-auto bg-[#15151599] p-6 md:px-12 md:py-20 lg:px-24 lg:py-16 text-white mt-10">
-                        <h2 className="text-5xl font-semibold mb-3">{title}</h2>
+                        <h2 className="text-5xl font-semibold mb-3 uppercase">{title}</h2>
                         <p className='font-semibold'>
                               {subtitle}
                         </p>

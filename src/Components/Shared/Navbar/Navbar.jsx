@@ -34,7 +34,7 @@ const Navbar = () => {
                   </NavLink>
             </li>
             <li className="text-lg font-normal">
-                  <NavLink to="/our-shop" style={({ isActive }) => ({
+                  <NavLink to="/our-shop/salads" style={({ isActive }) => ({
                         color: isActive ? '#EEFF25' : '#FFF',
                   })}>
                         Our Shop
