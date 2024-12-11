@@ -1,7 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
 
-
-
 const Navbar = () => {
 
       const navLinks = <>
@@ -38,6 +36,20 @@ const Navbar = () => {
                         color: isActive ? '#EEFF25' : '#FFF',
                   })}>
                         Our Shop
+                  </NavLink>
+            </li>
+            <li className="text-lg font-normal">
+                  <NavLink to="/login" style={({ isActive }) => ({
+                        color: isActive ? '#EEFF25' : '#FFF',
+                  })}>
+                        Login
+                  </NavLink>
+            </li>
+            <li className="text-lg font-normal">
+                  <NavLink to="/registration" style={({ isActive }) => ({
+                        color: isActive ? '#EEFF25' : '#FFF',
+                  })}>
+                        Registration
                   </NavLink>
             </li>
 
