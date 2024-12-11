@@ -6,10 +6,12 @@ import SocialLogin from '../../../Components/SocialLogin/SocialLogin';
 import { loadCaptchaEnginge, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import UseAuth from '../../../Hooks/UseAuth';
 
 const Login = () => {
 
       const [captchaValidate, setCaptchaValidate] = useState(false);
+      const { logIn } = UseAuth();
 
       const {
             register,
@@ -26,8 +28,16 @@ const Login = () => {
             if (!captchaValidate) {
                   return toast.error('Please complete the captcha correctly!!')
             }
-            console.log("Form Data:", data);
-            // Add your login logic here (e.g., API call)
+            const { email, password } = data;
+            
+            // Log in user
+            logIn(email, password)
+                  .then(() => {
+                        toast.success('Successfully logged in!!')
+                  })
+                  .catch(error => {
+                        toast.error(error?.message)
+                  })
       };
 
       // validate captcha

@@ -6,10 +6,12 @@ import SocialLogin from '../../../Components/SocialLogin/SocialLogin';
 import toast from 'react-hot-toast';
 import axios from 'axios'
 import { useState } from 'react';
+import UseAuth from '../../../Hooks/UseAuth';
 
 const Registration = () => {
 
-      const [image, setImage] = useState(null)
+      const [image, setImage] = useState(null);
+      const { user, setUser, createUser, updateUser } = UseAuth();
 
       const {
             register,
@@ -26,7 +28,7 @@ const Registration = () => {
                   formData.append("image", file);
 
                   try {
-                        const response = await axios.post(`${import.meta.env.imageBB_API_KEY}`, formData);
+                        const response = await axios.post(`https://api.imgbb.com/1/upload?key=597d78aa1ab369b0aa1583848b74f0f9`, formData);
                         setImage(response?.data?.data?.url)
                   } catch (error) {
                         toast.error(error?.message)
@@ -36,8 +38,25 @@ const Registration = () => {
       }
 
       const onSubmit = (data) => {
-            const user_data = { ...data, image }
-            console.log(user_data);
+            const { name, email, password } = data;
+
+            // create user
+            createUser(email, password)
+                  .then(() => {
+                        // Update user info
+                        updateUser(name, image)
+                              .then(() => {
+                                    setUser({ ...user, name, email, image });
+                                    toast.success('User Created Successfully!!')
+                              })
+                              .catch(error => {
+                                    toast.error(error?.message);
+                              });
+                  })
+                  .catch(error => {
+                        toast.error(error?.message);
+                  });
+
       };
 
       return (

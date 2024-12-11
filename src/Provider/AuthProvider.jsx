@@ -1,57 +1,134 @@
-import PropTypes from 'prop-types';
+import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import auth from "../Config/Firebase.config";
+import PropTypes from 'prop-types';
 
-export const AuthContent = createContext();
+export const AuthContext = createContext(null);
+
+const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
-
       const [user, setUser] = useState(null);
-      const [loading, setLoading] = useState(true);
+      const [loading, setLoading] = useState(true); // Track loading state
 
-      const auth = getAuth();
-
-      // Create user function
+      // Create new user with email and password
       const createUser = async (email, password) => {
             setLoading(true);
             try {
                   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                  setUser(userCredential.user);
                   return userCredential.user;
             } catch (error) {
-                  console.error("Error creating user:", error.message);
+                  console.error("Error creating user:", error);
                   throw error;
             } finally {
                   setLoading(false);
             }
       };
 
-      // Listen for authentication state changes
-      useEffect(() => {
-            const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-                  setUser(currentUser);
-                  console.log('Logged In user:', currentUser);
-                  setLoading(false)
-            })
+      // Update user's profile with name and photo URL
+      const updateUser = async (name, image) => {
+            setLoading(true);
+            try {
+                  await updateProfile(auth.currentUser, { displayName: name, photoURL: image });
+                  return auth.currentUser;
+            } catch (error) {
+                  console.error("Error updating profile:", error);
+                  throw error;
+            } finally {
+                  setLoading(false);
+            }
+      };
 
-            return () => unsubscribe();
-      }, [auth])
+      // Log in existing user with email and password
+      const logIn = async (email, password) => {
+            setLoading(true);
+            try {
+                  const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                  return userCredential.user;
+            } catch (error) {
+                  console.error("Error logging in:", error);
+                  throw error;
+            } finally {
+                  setLoading(false);
+            }
+      };
+
+      // Log in user with Google
+      const googleLogIn = async () => {
+            setLoading(true);
+            try {
+                  const userCredential = await signInWithPopup(auth, googleProvider);
+                  return userCredential.user;
+            } catch (error) {
+                  console.error("Error with Google login:", error);
+                  throw error;
+            } finally {
+                  setLoading(false);
+            }
+      };
+
+      // Log in user with GitHub
+      const githubLogIn = async () => {
+            setLoading(true);
+            try {
+                  const userCredential = await signInWithPopup(auth, githubProvider);
+                  return userCredential.user;
+            } catch (error) {
+                  console.error("Error with GitHub login:", error);
+                  throw error;
+            } finally {
+                  setLoading(false);
+            }
+      };
+
+      // Log out user
+      const logOut = async () => {
+            setLoading(true);
+            try {
+                  await signOut(auth);
+                  setUser(null);
+            } catch (error) {
+                  console.error("Error logging out:", error);
+                  throw error;
+            } finally {
+                  setLoading(false);
+            }
+      };
+
+      // Monitor auth state changes and set user accordingly
+      useEffect(() => {
+            const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+                  console.log('Auth State Changed - Current User:', currentUser);
+                  setUser(currentUser);
+                  setLoading(false)
+            });
+
+            return () => unSubscribe();
+      }, []);
+
 
       const authInfo = {
             user,
+            setUser,
             loading,
-            createUser, // Expose createUser function
+            createUser,
+            updateUser,
+            logIn,
+            googleLogIn,
+            githubLogIn,
+            logOut,
       };
 
       return (
-            <AuthContent.Provider value={authInfo}>
+            <AuthContext.Provider value={authInfo}>
                   {children}
-            </AuthContent.Provider>
+            </AuthContext.Provider>
       );
 };
 
 AuthProvider.propTypes = {
       children: PropTypes.node,
-};
+}
 
 export default AuthProvider;
