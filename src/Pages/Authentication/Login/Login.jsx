@@ -1,17 +1,20 @@
 import bgImg from '../../../assets/others/authentication.png';
 import authImg from '../../../assets/others/authentication2.png';
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from '../../../Components/SocialLogin/SocialLogin';
 import { loadCaptchaEnginge, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import UseAuth from '../../../Hooks/UseAuth';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
 
       const [captchaValidate, setCaptchaValidate] = useState(false);
       const { logIn } = UseAuth();
+      const location = useLocation();
+      const navigate = useNavigate();
 
       const {
             register,
@@ -29,11 +32,12 @@ const Login = () => {
                   return toast.error('Please complete the captcha correctly!!')
             }
             const { email, password } = data;
-            
+
             // Log in user
             logIn(email, password)
                   .then(() => {
                         toast.success('Successfully logged in!!')
+                        navigate(location?.state ? location?.state : '/')
                   })
                   .catch(error => {
                         toast.error(error?.message)
@@ -58,6 +62,9 @@ const Login = () => {
 
       return (
             <div className='bg-cover bg-no-repeat md:px-10 lg:px-24 py-20' style={{ backgroundImage: `url(${bgImg})` }}>
+                  <Helmet>
+                        <title>Login | Bistro Boss</title>
+                  </Helmet>
                   <div
                         style={{
                               boxShadow: "10px 10px 10px 10px rgba(0, 0, 0, 0.25)",

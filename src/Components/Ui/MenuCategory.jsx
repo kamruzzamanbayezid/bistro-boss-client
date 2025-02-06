@@ -20,7 +20,7 @@ const MenuCategory = ({ menus, bgImg, title, subtitle, btnText }) => {
                                     ))
                               }
                         </div>
-                        <Link to={`/our-shop/${title}`}>
+                        <Link to={`/our-shop/${title || 'salads'}`}>
                               <CommonButton text={btnText} />
                         </Link>
                   </div>

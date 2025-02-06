@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import profile from '../../assets/others/profile.png';
 
 const UserProfile = ({ user, handleLogout }) => {
       return (
@@ -6,7 +7,7 @@ const UserProfile = ({ user, handleLogout }) => {
                   <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
                               <img
-                                    src={user?.photoURL || "https://via.placeholder.com/40"}
+                                    src={user?.photoURL || profile}
                                     alt="User Avatar"
                               />
                         </div>

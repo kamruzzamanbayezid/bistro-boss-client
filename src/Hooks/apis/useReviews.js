@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import UseAxiosSecure from "../UseAxiosSecure";
 
 const useReviews = () => {
 
@@ -7,10 +7,12 @@ const useReviews = () => {
       const [error, setError] = useState(null);
       const [loading, setLoading] = useState(true);
 
+      const apiHandler = UseAxiosSecure();
+
       const fetchReviews = async () => {
             try {
                   setLoading(true)
-                  const response = await axios.get('/reviews.json');
+                  const response = await apiHandler.get('/reviews');
                   setReviews(response?.data)
             } catch (error) {
                   setError(error?.message || "Something went wrong!");

@@ -1,15 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import UseAxiosSecure from "../UseAxiosSecure";
 
 const useMenu = (category) => {
       const [menus, setMenus] = useState(null);
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(null);
 
+      const apiHandler = UseAxiosSecure();
+
       const fetchMenu = async () => {
             try {
                   setLoading(true);
-                  const response = await axios.get('/menu.json');
+                  const response = await apiHandler.get('/all-menu');
                   const allMenu = response?.data;
                   if (category) {
                         const filteredMenuByCategory = allMenu?.filter(menu => menu?.category === category);
