@@ -52,7 +52,7 @@ const Dashboard = () => {
               </li>
               <li className="text-lg font-medium mb-6">
                 <NavLink
-                  to="/add-items"
+                  to="/dashboard/add-items"
                   style={({ isActive }) => ({
                     color: isActive ? "#FFF" : "#000",
                     fontWeight: isActive && "bold",
@@ -67,7 +67,7 @@ const Dashboard = () => {
               </li>
               <li className="text-lg font-medium mb-6">
                 <NavLink
-                  to="/manage-items"
+                  to="/dashboard/manage-items"
                   style={({ isActive }) => ({
                     color: isActive ? "#FFF" : "#000",
                     fontWeight: isActive && "bold",

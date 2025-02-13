@@ -122,12 +122,13 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
       const userInfo = { email: currentUser?.email };
       if (currentUser) {
-        const response = await apiHandler.post("/jwt", userInfo, {
+        await apiHandler.post("/jwt", userInfo, {
           withCredentials: true,
         });
-        console.log(response);
+        // console.log(response);
       } else {
         setLoading(false);
       }

@@ -109,7 +109,7 @@ const AllUsers = () => {
             {/* Table Body */}
             <tbody>
               {users?.map((user, index) => (
-                <tr key={user.id} className='border-b text-lg hover:bg-gray-50'>
+                <tr key={user._id} className='border-b text-lg hover:bg-gray-50'>
                   <td className='p-4 text-xl text-left font-bold'>
                     {index + 1}
                   </td>

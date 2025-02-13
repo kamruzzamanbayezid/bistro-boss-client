@@ -1,36 +1,25 @@
-import { useEffect, useState } from "react";
+
 import UseAxiosSecure from "../UseAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const useMenu = (category) => {
-      const [menus, setMenus] = useState(null);
-      const [loading, setLoading] = useState(true);
-      const [error, setError] = useState(null);
 
       const apiHandler = UseAxiosSecure();
 
-      const fetchMenu = async () => {
-            try {
-                  setLoading(true);
-                  const response = await apiHandler.get('/all-menu');
-                  const allMenu = response?.data;
+      const { data: menus = [], isError, error, isLoading, refetch } = useQuery({
+            queryKey: ['menu'],
+            queryFn: async () => {
+                  const response = await apiHandler.get('/all-menu', { withCredentials: true });
                   if (category) {
-                        const filteredMenuByCategory = allMenu?.filter(menu => menu?.category === category);
-                        setMenus(filteredMenuByCategory);
+                        const filteredMenuByCategory = response?.data?.filter(menu => menu?.category === category);
+                        return filteredMenuByCategory;
                   } else {
-                        setMenus(allMenu);
+                        return response?.data;
                   }
-            } catch (err) {
-                  setError(err?.message || "Something went wrong!");
-            } finally {
-                  setLoading(false);
             }
-      };
+      })
 
-      useEffect(() => {
-            fetchMenu()
-      }, []);
-
-      return { menus, loading, error, fetchMenu };
+      return { menus, error, isLoading, isError, refetch };
 };
 
 export default useMenu;

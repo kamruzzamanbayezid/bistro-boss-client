@@ -1,21 +1,13 @@
-import CommonTitle from "../../../Components/Ui/CommonTitle";
-import { RiDeleteBinLine } from "react-icons/ri";
+import { RiDeleteBinLine, RiEditBoxLine } from "react-icons/ri";
+import CommonTitle from "../../../../Components/Ui/CommonTitle";
+import useMenu from "../../../../Hooks/apis/useMenu";
 import Swal from "sweetalert2";
-import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
-import useMyCartsData from "../../../Hooks/apis/useMyCartsData";
-// import UseAdmin from "../../../Hooks/UseAdmin";
+import UseAxiosSecure from "../../../../Hooks/UseAxiosSecure";
+import { Link } from "react-router-dom";
 
-const MyCart = () => {
-  const { carts, refetch } = useMyCartsData();
-  // const { data } = UseAdmin();
-  // console.log(data);
-
-  const apiHandler = UseAxiosSecure();
-
-  // calculate total carts price
-  const totalCartsPrice = carts?.reduce((prev, curr) => {
-    return prev + curr?.price;
-  }, 0);
+const ManageItems = () => {
+  const { menus, refetch } = useMenu();
+  const axiosSecure = UseAxiosSecure();
 
   //   delete cart items
   const handleDelete = async (id) => {
@@ -30,12 +22,12 @@ const MyCart = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await apiHandler.delete(`/carts/${id}`);
+          const response = await axiosSecure.delete(`/all-menu/${id}`);
 
           if (response?.data?.deletedCount === 1) {
             Swal.fire({
               title: "Deleted!",
-              text: "Your cart item has been deleted.",
+              text: "Your menu item has been deleted.",
               icon: "success",
             });
 
@@ -51,19 +43,13 @@ const MyCart = () => {
 
   return (
     <div>
-      <CommonTitle subTitle="---My Cart---" title="WANNA ADD MORE?" />
+      <CommonTitle subTitle="---Hurry Up!---" title="MANAGE ALL ITEMS" />
       <div className="w-full px-20 bg-white">
         {/* Header Section */}
-        <div className="flex justify-between items-center mb-6 border-b pb-4">
+        <div className="mb-6 border-b pb-4">
           <h2 className="text-3xl font-bold font-cinzen">
-            TOTAL ORDERS: <span>{carts?.length}</span>
+            TOTAL ITEMS: <span>{menus?.length}</span>
           </h2>
-          <h2 className="text-3xl font-bold font-cinzen">
-            TOTAL PRICE: <span>${totalCartsPrice}</span>
-          </h2>
-          <button className="bg-[#D1A054] text-white px-6 py-2 rounded-md text-lg hover:bg-yellow-700">
-            PAY
-          </button>
         </div>
 
         {/* Table Section */}
@@ -85,13 +71,19 @@ const MyCart = () => {
                 <th className="py-6 text-left font-semibold text-base">
                   ACTION
                 </th>
+                <th className="py-6 text-left font-semibold text-base">
+                  ACTION
+                </th>
               </tr>
             </thead>
 
             {/* Table Body */}
             <tbody>
-              {carts?.map((cart, index) => (
-                <tr key={cart._id} className="border-b text-lg hover:bg-gray-50">
+              {menus?.map((menu, index) => (
+                <tr
+                  key={menu?._id}
+                  className="border-b text-lg hover:bg-gray-50"
+                >
                   <td className="p-4 text-xl text-left font-bold">
                     {index + 1}
                   </td>
@@ -100,22 +92,32 @@ const MyCart = () => {
                     <div className="w-16 h-16 bg-gray-300">
                       <img
                         className="w-full h-full object-cover"
-                        src={cart?.image}
+                        src={menu?.image}
                         alt=""
                       />
                     </div>
                   </td>
                   {/* Item Name */}
-                  <td className="py-4 text-left text-[#737373]">{cart.name}</td>
+                  <td className="py-4 text-left text-[#737373]">
+                    {menu?.name}
+                  </td>
                   {/* Price */}
                   <td className="py-4 text-left text-[#737373]">
-                    ${cart.price}
+                    ${menu?.price}
+                  </td>
+                  {/* Action (Edit Button) */}
+                  <td className="py-4 text-center">
+                    <Link to={`/dashboard/update-menu/${menu?._id}`}>
+                      <button className="bg-[#D1A054] text-white rounded-md p-2">
+                        <RiEditBoxLine />
+                      </button>
+                    </Link>
                   </td>
                   {/* Action (Delete Button) */}
                   <td className="py-4 text-center">
                     <button
-                      onClick={() => handleDelete(cart?._id)}
-                      className="bg-[#B91C1C] text-white rounded-md p-2 hover:bg-red-700"
+                      onClick={() => handleDelete(menu?._id)}
+                      className="bg-[#B91C1C] text-white rounded-md p-2"
                     >
                       <RiDeleteBinLine />
                     </button>
@@ -130,4 +132,4 @@ const MyCart = () => {
   );
 };
 
-export default MyCart;
+export default ManageItems;

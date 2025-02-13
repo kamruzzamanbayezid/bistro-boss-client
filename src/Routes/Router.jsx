@@ -8,52 +8,89 @@ import Registration from "../Pages/Authentication/Registration/Registration";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import MyCart from "../Pages/Dashboard/MyCart/MyCart";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers/AllUsers";
+import AdminRoute from "./AdminRoute";
+import AddItems from "../Pages/Dashboard/Admin/AddItems/AddItems";
+import ManageItems from "../Pages/Dashboard/Admin/ManageItems/ManageItems";
+import PrivateRoute from "./PrivateRoute";
+import UpdateMenu from "../Components/Ui/UpdateMenu";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
       {
-            path: '/',
-            element: <MainLayout />,
-            children: [
-                  {
-                        index: true,
-                        element: <Home />
-                  },
-                  {
-                        path: 'our-menu',
-                        element: <OurMenu />
-                  },
-                  {
-                        path: 'our-shop/:category',
-                        element: <OurShop />
-                  },
-            ]
-      },
-      // login && registration
-      {
-            path: '/login',
-            element: <Login />
+        index: true,
+        element: <Home />,
       },
       {
-            path: '/registration',
-            element: <Registration />
+        path: "our-menu",
+        element: <OurMenu />,
       },
-      // Dashboard
       {
-            path: 'dashboard',
-            element: <Dashboard />,
-            children: [
-                  {
-                        path: 'my-cart',
-                        element: <MyCart />
-                  },
+        path: "our-shop/:category",
+        element: <OurShop />,
+      },
+    ],
+  },
+  // login && registration
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/registration",
+    element: <Registration />,
+  },
+  // Dashboard
+  {
+    path: "dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: "my-cart",
+        element: (
+          <PrivateRoute>
+            <MyCart />
+          </PrivateRoute>
+        ),
+      },
 
-                  // Admin Routes
-                  {
-                        path: 'all-users',
-                        element: <AllUsers />
-                  },
-            ],
-      }
-])
+      // Admin Routes
+      {
+        path: "add-items",
+        element: (
+          <AdminRoute>
+            <AddItems />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-items",
+        element: (
+          <AdminRoute>
+            <ManageItems />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "update-menu/:id",
+        element: (
+          <AdminRoute>
+            <UpdateMenu />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "all-users",
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
+      },
+    ],
+  },
+]);
 
 export default router;
